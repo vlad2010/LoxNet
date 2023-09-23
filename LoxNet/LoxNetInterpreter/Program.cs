@@ -4,8 +4,7 @@ using System;
 
 public class LoxNex
 {
-    private static Boolean hadError = false;
-    
+
     public static void Main(string[] args)
     {
         if (args.Length > 1)
@@ -25,6 +24,11 @@ public class LoxNex
 
     private static void RunFile(String path)
     {
+        if(ErrorReporting.hadError)
+        {
+            Environment.Exit(64);
+        }
+
         Console.WriteLine($"RunFile: {path} ");
         var source = File.ReadAllText(path);
         Run(source);
@@ -43,23 +47,15 @@ public class LoxNex
                 break;
             }
             Run(line);
+            ErrorReporting.hadError = false;
         }
     }
-    
+
     private static void Run(String source)
     {
         Console.WriteLine($"Run code: {source}");
     }
 
-    private static void Error(int line, String message)
-    {
-        Report(line, String.Empty, message);
-    }
 
-    private static void Report(int line, String where, String message)
-    {
-        Console.WriteLine($"[line {line}] Error {where}: {message}");
-        hadError = true;
-    }
-    
+
 }
