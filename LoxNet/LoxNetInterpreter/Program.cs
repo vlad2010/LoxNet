@@ -4,6 +4,8 @@ using System;
 
 public class LoxNex
 {
+    private static Boolean hadError = false;
+    
     public static void Main(string[] args)
     {
         if (args.Length > 1)
@@ -48,4 +50,16 @@ public class LoxNex
     {
         Console.WriteLine($"Run code: {source}");
     }
+
+    private static void Error(int line, String message)
+    {
+        Report(line, String.Empty, message);
+    }
+
+    private static void Report(int line, String where, String message)
+    {
+        Console.WriteLine($"[line {line}] Error {where}: {message}");
+        hadError = true;
+    }
+    
 }
