@@ -15,7 +15,9 @@
 
         // keywords
         AND, CLASS, ELSE, FALSE, FUN, FOR, IF, NIL, OR, PRINT, RETURN, SUPER,
-        THIS, TRUE, VAR, WHILE
+        THIS, TRUE, VAR, WHILE,
+
+        EOF
     }
 
 
@@ -26,7 +28,7 @@
         private readonly Object literal;
         private readonly int line;
 
-        Token(TokenType type, String lexeme, Object literal, int line)
+        public Token(TokenType type, String lexeme, Object literal, int line)
         {
             this.type = type;
             this.lexeme = lexeme;
