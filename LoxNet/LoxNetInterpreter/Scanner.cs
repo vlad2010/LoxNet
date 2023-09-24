@@ -27,13 +27,17 @@ namespace LoxNetInterpreter
             while(!IsAtEnd())
             {
                 start = current;
-                ScanTokens();
+                ScanToken();
             }
 
             tokens.Add(new Token(TokenType.EOF, "", null, line) );
             return tokens;
         }
 
+        private void ScanToken()
+        {
+            return;
+        }
         private Boolean IsAtEnd()
         {
             return current >= source.Length;
