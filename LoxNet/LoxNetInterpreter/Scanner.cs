@@ -10,7 +10,7 @@ using static LoxNetInterpreter.Token;
 
 namespace LoxNetInterpreter
 {
-    internal class Scanner
+    public class Scanner
     {
         private readonly String source;
         private readonly List<Token> tokens = new List<Token>();
@@ -44,7 +44,7 @@ namespace LoxNetInterpreter
             };
         }
 
-        List<Token> ScanTokens()
+        public List<Token> ScanTokens()
         {
             while (!IsAtEnd())
             {
@@ -52,7 +52,7 @@ namespace LoxNetInterpreter
                 ScanToken();
             }
 
-            tokens.Add(new Token(TokenType.EOF, "", null, line));
+            tokens.Add(new Token(TokenType.EOF, "", line));
             return tokens;
         }
 
@@ -140,10 +140,11 @@ namespace LoxNetInterpreter
 
         private void AddToken(TokenType type)
         {
-            AddToken(type, null);
+            String text = source.Substring(start, current - start);
+            tokens.Add(new Token(type, text, line));
         }
 
-        private void AddToken(TokenType type, Object? literal)
+        private void AddToken(TokenType type, Object literal)
         {
             String text = source.Substring(start, current - start);
             tokens.Add(new Token(type, text, literal, line));

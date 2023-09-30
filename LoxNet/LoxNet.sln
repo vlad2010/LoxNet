@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoxNetInterpreter", "LoxNetInterpreter\LoxNetInterpreter.csproj", "{1C9AE2F5-BBD2-475A-971F-8E57D8B996A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoxNetTests", "LoxNetTests\LoxNetTests.csproj", "{C276C490-5275-4419-AEA2-6FD09010E48A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{1C9AE2F5-BBD2-475A-971F-8E57D8B996A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C9AE2F5-BBD2-475A-971F-8E57D8B996A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C9AE2F5-BBD2-475A-971F-8E57D8B996A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C276C490-5275-4419-AEA2-6FD09010E48A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C276C490-5275-4419-AEA2-6FD09010E48A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C276C490-5275-4419-AEA2-6FD09010E48A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C276C490-5275-4419-AEA2-6FD09010E48A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
