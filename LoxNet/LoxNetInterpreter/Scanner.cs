@@ -14,6 +14,7 @@ namespace LoxNetInterpreter
     {
         private readonly String source;
         private readonly List<Token> tokens = new List<Token>();
+        private readonly Dictionary<String, TokenType> keywords;
 
         private int start = 0;
         private int current = 0;
@@ -22,6 +23,25 @@ namespace LoxNetInterpreter
         public Scanner(String source)
         {
             this.source = source;
+            keywords = new Dictionary<string, TokenType>()
+            {
+                {"and", TokenType.AND},
+                {"class", TokenType.CLASS},
+                {"else", TokenType.ELSE},
+                {"false", TokenType.FALSE},
+                {"for", TokenType.FOR},
+                {"fun", TokenType.FUN},
+                {"if", TokenType.IF},
+                {"nil", TokenType.NIL},
+                {"or", TokenType.OR},
+                {"print", TokenType.PRINT},
+                {"return", TokenType.RETURN},
+                {"super", TokenType.SUPER},
+                {"this", TokenType.THIS},
+                {"true", TokenType.TRUE},
+                {"var", TokenType.VAR},
+                {"while", TokenType.WHILE},
+            };
         }
 
         List<Token> ScanTokens()
@@ -94,6 +114,10 @@ namespace LoxNetInterpreter
                     if (Char.IsDigit(c))
                     {
                         Number();
+                    }
+                    else if (IsLoxAlphaChar(c))
+                    {
+                        Identifier();
                     }
                     else
                     {
@@ -198,6 +222,31 @@ namespace LoxNetInterpreter
                 return '\0';
 
             return source[current + 1];
+        }
+
+        private void Identifier()
+        {
+            while (IsLoxAlphaNumeric(Peek())) Advance();
+
+            String text = source.Substring(start, current - start);
+            TokenType type = TokenType.IDENTIFIER;
+            
+            if (keywords.TryGetValue(text, out var keyword))
+            {
+                type = keyword;
+            }
+            
+            AddToken(type);
+        }
+
+        private Boolean IsLoxAlphaChar(char c)
+        {
+            return char.IsAsciiLetter(c) || c == '_';
+        }
+
+        private Boolean IsLoxAlphaNumeric(char c)
+        {
+            return IsLoxAlphaChar(c) || char.IsDigit(c);
         }
     }
 }
