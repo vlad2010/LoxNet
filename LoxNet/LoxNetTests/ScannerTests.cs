@@ -72,6 +72,26 @@ public class ScannerTests
                 new(TokenType.TRUE, "true", 4),
                 new(TokenType.EOF, string.Empty, 4)
             });
+
+            // nested block comments
+            yield return new TestCaseData("/* /* */  some text */", new List<Token> {
+                new(TokenType.EOF, string.Empty, 1)
+            });
+
+            // nested block comments with new lines
+            yield return new TestCaseData("/* \n /* \n */  some text */", new List<Token> {
+                new(TokenType.EOF, string.Empty, 3)
+            });
+
+
+            // multiline block comment
+            yield return new TestCaseData("+ - /* for \n some /* \n variable /*  \n */   */ \n int  */ true ", new List<Token> {
+                new(TokenType.PLUS, "+", 1),
+                new(TokenType.MINUS, "-", 1),
+                new(TokenType.TRUE, "true", 5),
+                new(TokenType.EOF, string.Empty, 5)
+            });
+
         }
     }
 

@@ -94,32 +94,7 @@ namespace LoxNetInterpreter
                     }
                     else if (Match('*'))
                     {
-                        // Block comment: consume until "*/" or EOF.
-                        while (!IsAtEnd())
-                        {
-                            // increase line number in case of \n symbol
-                            if (Peek() == '\n')
-                            {
-                                line++;
-                            }
-
-                            if (Peek() == '*')
-                            {
-                                Advance();               // consume '*'
-
-
-                                if (!IsAtEnd() && Peek() == '/')
-                                {
-                                    Advance();           // consume '/'
-                                    break;              // end of block comment
-                                }
-
-                                // Not the end: we already consumed '*', continue scanning.
-                                continue;
-                            }
-
-                            Advance(); // consume any other character
-                        }
+                        SkipBlockCommentNested();
                     }
                     else
                     {
@@ -158,6 +133,43 @@ namespace LoxNetInterpreter
 
             return;
         }
+
+        private void SkipBlockCommentNested()
+        {
+            int depth = 1;
+
+            while (depth > 0 && !IsAtEnd())
+            {
+                char c = Advance();   // consume current character
+
+                if (c == '\n')
+                    line++;
+
+                if (c == '/')
+                {
+                    // possible nested "/*"
+                    if (!IsAtEnd() && Peek() == '*')
+                    {
+                        Advance();   // consume '*'
+                        depth++;
+                    }
+                }
+                else if (c == '*')
+                {
+                    // possible closing "*/"
+                    if (!IsAtEnd() && Peek() == '/')
+                    {
+                        Advance();   // consume '/'
+                        depth--;
+                    }
+                }
+            }
+
+            // Optional error:
+            // if (depth > 0) Error("Unterminated block comment.");
+        }
+
+
         private Boolean IsAtEnd()
         {
             return current >= source.Length;

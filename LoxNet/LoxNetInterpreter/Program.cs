@@ -1,5 +1,4 @@
 ﻿namespace LoxNetInterpreter;
-
 using System;
 
 public class LoxNex
