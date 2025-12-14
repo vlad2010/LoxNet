@@ -202,7 +202,7 @@ namespace LoxNetInterpreter
             {
                 Advance();
             }
-            
+
             // look for fraction part
             if (Peek() == '.' && Char.IsDigit(PeekNext()))
             {
@@ -219,7 +219,7 @@ namespace LoxNetInterpreter
 
         private char PeekNext()
         {
-            if (current + 1 >= source.Length) 
+            if (current + 1 >= source.Length)
                 return '\0';
 
             return source[current + 1];
@@ -231,12 +231,12 @@ namespace LoxNetInterpreter
 
             String text = source.Substring(start, current - start);
             TokenType type = TokenType.IDENTIFIER;
-            
+
             if (keywords.TryGetValue(text, out var keyword))
             {
                 type = keyword;
             }
-            
+
             AddToken(type);
         }
 

@@ -20,10 +20,11 @@
         EOF
     }
 
-
     public class Token
     {
         private readonly TokenType m_type;
+
+        // m_lexeme is text representation of token
         private readonly String m_lexeme;
         private readonly Object? m_literal;
         private readonly int m_line;
@@ -42,12 +43,12 @@
             this.m_lexeme = mLexeme;
             this.m_line = mLine;
         }
-        
+
         public override string ToString()
         {
             return m_type + " " + m_lexeme + " " + m_literal;
         }
-        
+
         public override bool Equals(Object obj)
         {
             var t = obj as Token;
