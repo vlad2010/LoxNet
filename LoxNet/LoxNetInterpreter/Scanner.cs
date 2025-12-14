@@ -91,7 +91,37 @@ namespace LoxNetInterpreter
                     {
                         // skip all commented text
                         while (Peek() != '\n' && !IsAtEnd()) Advance();
-                    } else
+                    }
+                    else if (Match('*'))
+                    {
+                        // Block comment: consume until "*/" or EOF.
+                        while (!IsAtEnd())
+                        {
+                            // increase line number in case of \n symbol
+                            if (Peek() == '\n')
+                            {
+                                line++;
+                            }
+
+                            if (Peek() == '*')
+                            {
+                                Advance();               // consume '*'
+
+
+                                if (!IsAtEnd() && Peek() == '/')
+                                {
+                                    Advance();           // consume '/'
+                                    break;              // end of block comment
+                                }
+
+                                // Not the end: we already consumed '*', continue scanning.
+                                continue;
+                            }
+
+                            Advance(); // consume any other character
+                        }
+                    }
+                    else
                     {
                         AddToken(TokenType.SLASH);
                     }
@@ -150,6 +180,7 @@ namespace LoxNetInterpreter
             tokens.Add(new Token(type, text, literal, line));
         }
 
+        // check symbol and advance position
         private Boolean Match(char expected)
         {
             if (IsAtEnd())
